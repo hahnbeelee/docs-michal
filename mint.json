@@ -29,6 +29,16 @@
     {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "API Reference",
+      "url": "reference/v4",
+      "openapi": "https://app.stainlessapi.com/api/spec/documented/sgp/openapi.yml"
+    },
+    {
+      "name": "Local API",
+      "url": "local-api",
+      "openapi": "/pet-store.json"
     }
   ],
   "anchors": [
@@ -51,11 +61,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+      "pages": ["introduction", "quickstart", "development"]
     },
     {
       "group": "Essentials",
@@ -70,9 +76,7 @@
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "Endpoint Examples",
