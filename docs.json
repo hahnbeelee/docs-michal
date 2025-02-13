@@ -9,10 +9,9 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "wrong": "property",
     "tabs": [
       {
-        "tab": "Documentation",
+        "anchor": "Documentation",
         "groups": [
           {
             "group": "Get Started",
