@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "anchor": "Documentation",
+        "tab": "Documentation",
         "groups": [
           {
             "group": "Get Started",
@@ -20,6 +20,7 @@
           {
             "group": "Essentials",
             "pages": [
+              "api-reference/sticky-session/get-create",
               "essentials/markdown",
               "essentials/code",
               "essentials/images",
@@ -50,7 +51,7 @@
       {
         "tab": "API Reference",
         "openapi": {
-          "source": "https://app.stainlessapi.com/api/spec/documented/sgp/openapi.yml",
+          "source": "https://docs.api.enterprise.uphold.com/openapi/6761c62f8d1f1b0010a764ea",
           "directory": "reference/v4"
         }
       },
