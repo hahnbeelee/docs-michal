@@ -51,7 +51,7 @@
       {
         "tab": "API Reference",
         "openapi": {
-          "source": "https://docs.api.enterprise.uphold.com/openapi/6761c62f8d1f1b0010a764ea",
+          "source": "/reductoai.yaml",
           "directory": "reference/v4"
         }
       },

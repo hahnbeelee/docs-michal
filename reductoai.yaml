@@ -1,0 +1,2780 @@
+openapi: 3.1.0
+info:
+  title: Reducto API
+  version: v1.9.31-12-g1c6f3d29
+servers:
+  - url: https://platform.reducto.ai
+paths:
+  /split:
+    post:
+      summary: Split
+      operationId: split_split_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitConfig'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const splitResponse = await client.split.run({
+                document_url: 'string',
+                split_description: [{ description: 'description', name: 'name' }],
+              });
+
+              console.log(splitResponse.result);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            split_response = client.split.run(
+                document_url="string",
+                split_description=[{
+                    "description": "description",
+                    "name": "name",
+                }],
+            )
+            print(split_response.result)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+              "github.com/reductoai/reducto-go-sdk/shared"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              splitResponse, err := client.Split.Run(context.TODO(), reducto.SplitRunParams{
+                DocumentURL: reducto.F[reducto.SplitRunParamsDocumentURLUnion](shared.UnionString("string")),
+                SplitDescription: reducto.F([]shared.SplitCategoryParam{shared.SplitCategoryParam{
+                  Description: reducto.F("description"),
+                  Name: reducto.F("name"),
+                }}),
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", splitResponse.Result)
+            }
+  /split_async:
+    post:
+      summary: Split Async
+      operationId: split_async_split_async_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsyncSplitConfig'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncSplitResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const response = await client.split.runJob({
+                document_url: 'string',
+                split_description: [{ description: 'description', name: 'name' }],
+              });
+
+              console.log(response.job_id);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            response = client.split.run_job(
+                document_url="string",
+                split_description=[{
+                    "description": "description",
+                    "name": "name",
+                }],
+            )
+            print(response.job_id)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+              "github.com/reductoai/reducto-go-sdk/shared"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              response, err := client.Split.RunJob(context.TODO(), reducto.SplitRunJobParams{
+                DocumentURL: reducto.F[reducto.SplitRunJobParamsDocumentURLUnion](shared.UnionString("string")),
+                SplitDescription: reducto.F([]shared.SplitCategoryParam{shared.SplitCategoryParam{
+                  Description: reducto.F("description"),
+                  Name: reducto.F("name"),
+                }}),
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", response.JobID)
+            }
+  /parse:
+    post:
+      summary: Parse
+      operationId: parse_parse_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParseConfigNew'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const parseResponse = await client.parse.run({ document_url: 'string' });
+
+              console.log(parseResponse.job_id);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            parse_response = client.parse.run(
+                document_url="string",
+            )
+            print(parse_response.job_id)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+              "github.com/reductoai/reducto-go-sdk/shared"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              parseResponse, err := client.Parse.Run(context.TODO(), reducto.ParseRunParams{
+                ParseConfig: reducto.ParseConfigParam{
+                  DocumentURL: reducto.F[reducto.ParseConfigDocumentURLUnionParam](shared.UnionString("string")),
+                },
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", parseResponse.JobID)
+            }
+  /extract:
+    post:
+      summary: Extract
+      operationId: extract_extract_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtractConfigNew'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const extractResponse = await client.extract.run({ document_url: 'string', schema: {} });
+
+              console.log(extractResponse.citations);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            extract_response = client.extract.run(
+                document_url="string",
+                schema={},
+            )
+            print(extract_response.citations)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+              "github.com/reductoai/reducto-go-sdk/shared"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              extractResponse, err := client.Extract.Run(context.TODO(), reducto.ExtractRunParams{
+                ExtractConfig: reducto.ExtractConfigParam{
+                  DocumentURL: reducto.F[reducto.ExtractConfigDocumentURLUnionParam](shared.UnionString("string")),
+                  Schema: reducto.F[any](map[string]interface{}{
+                  }),
+                },
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", extractResponse.Citations)
+            }
+  /extract_async:
+    post:
+      summary: Extract Async
+      operationId: extract_async_extract_async_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsyncExtractConfigNew'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncExtractResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const response = await client.extract.runJob({ document_url: 'string', schema: {} });
+
+              console.log(response.job_id);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            response = client.extract.run_job(
+                document_url="string",
+                schema={},
+            )
+            print(response.job_id)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+              "github.com/reductoai/reducto-go-sdk/shared"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              response, err := client.Extract.RunJob(context.TODO(), reducto.ExtractRunJobParams{
+                DocumentURL: reducto.F[reducto.ExtractRunJobParamsDocumentURLUnion](shared.UnionString("string")),
+                Schema: reducto.F[any](map[string]interface{}{
+                }),
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", response.JobID)
+            }
+  /parse_async:
+    post:
+      summary: Async Parse
+      operationId: async_parse_parse_async_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsyncParseConfigNew'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncParseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const response = await client.parse.runJob({ document_url: 'string' });
+
+              console.log(response.job_id);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            response = client.parse.run_job(
+                document_url="string",
+            )
+            print(response.job_id)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+              "github.com/reductoai/reducto-go-sdk/shared"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              response, err := client.Parse.RunJob(context.TODO(), reducto.ParseRunJobParams{
+                DocumentURL: reducto.F[reducto.ParseRunJobParamsDocumentURLUnion](shared.UnionString("string")),
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", response.JobID)
+            }
+  /job/{job_id}:
+    get:
+      summary: Retrieve Parse
+      operationId: retrieve_parse_job__job_id__get
+      security:
+        - SkippableHTTPBearer: []
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const job = await client.job.get('job_id');
+
+              console.log(job.status);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            job = client.job.get(
+                "job_id",
+            )
+            print(job.status)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              job, err := client.Job.Get(context.TODO(), "job_id")
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", job.Status)
+            }
+  /cancel/{job_id}:
+    post:
+      summary: Cancel Job
+      operationId: cancel_job_cancel__job_id__post
+      security:
+        - SkippableHTTPBearer: []
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const response = await client.job.cancel('job_id');
+
+              console.log(response);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            response = client.job.cancel(
+                "job_id",
+            )
+            print(response)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              response, err := client.Job.Cancel(context.TODO(), "job_id")
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", response)
+            }
+  /upload:
+    post:
+      summary: Upload
+      operationId: upload_upload_post
+      security:
+        - SkippableHTTPBearer: []
+      parameters:
+        - name: extension
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            title: Extension
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Body_upload_upload_post'
+              title: Body
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const upload = await client.upload();
+
+              console.log(upload.file_id);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            upload = client.upload()
+            print(upload.file_id)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              upload, err := client.Upload(context.TODO(), reducto.UploadParams{
+
+              })
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", upload.FileID)
+            }
+  /configure_webhook:
+    post:
+      summary: Webhook Portal
+      operationId: webhook_portal_configure_webhook_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Webhook Portal Configure Webhook Post
+      security:
+        - SkippableHTTPBearer: []
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const response = await client.webhook.run();
+
+              console.log(response);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            response = client.webhook.run()
+            print(response)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              response, err := client.Webhook.Run(context.TODO())
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", response)
+            }
+  /version:
+    get:
+      summary: Get Version
+      operationId: get_version_version_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-codeSamples:
+        - lang: JavaScript
+          source: |-
+            import Reducto from 'reductoai';
+
+            const client = new Reducto({
+              apiKey: process.env['REDUCTO_API_KEY'], // This is the default and can be omitted
+            });
+
+            async function main() {
+              const response = await client.apiVersion();
+
+              console.log(response);
+            }
+
+            main();
+        - lang: Python
+          source: |-
+            import os
+            from reducto import Reducto
+
+            client = Reducto(
+                api_key=os.environ.get("REDUCTO_API_KEY"),  # This is the default and can be omitted
+            )
+            response = client.api_version()
+            print(response)
+        - lang: Go
+          source: |
+            package main
+
+            import (
+              "context"
+              "fmt"
+
+              "github.com/reductoai/reducto-go-sdk"
+              "github.com/reductoai/reducto-go-sdk/option"
+            )
+
+            func main() {
+              client := reducto.NewClient(
+                option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("REDUCTO_API_KEY")
+              )
+              response, err := client.APIVersion(context.TODO())
+              if err != nil {
+                panic(err.Error())
+              }
+              fmt.Printf("%+v\n", response)
+            }
+components:
+  schemas:
+    AdvancedProcessingOptions:
+      properties:
+        ocr_system:
+          type: string
+          enum:
+            - highres
+            - multilingual
+            - combined
+          title: Ocr System
+          description: The OCR system to use. Highres is recommended for documents with English characters.
+          default: highres
+        table_output_format:
+          type: string
+          enum:
+            - html
+            - json
+            - md
+            - jsonbbox
+            - dynamic
+            - ai_json
+          title: Table Output Format
+          description: >-
+            The mode to use for table output. Dynamic returns md for simpler tables and html for more complex
+            tables.
+          default: html
+        merge_tables:
+          type: boolean
+          title: Merge Tables
+          description: A flag to indicate if consecutive tables with the same number of columns should be merged.
+          default: false
+        continue_hierarchy:
+          type: boolean
+          title: Continue Hierarchy
+          description: A flag to indicate if the hierarchy of the document should be continued from chunk to chunk.
+          default: true
+        keep_line_breaks:
+          type: boolean
+          title: Keep Line Breaks
+          description: If line breaks should be preserved in the text.
+          default: false
+        page_range:
+          anyOf:
+            - $ref: '#/components/schemas/PageRange'
+            - items:
+                $ref: '#/components/schemas/PageRange'
+              type: array
+          title: Page Range
+          description: The page range to process. By default, the entire document is processed.
+          default: {}
+        force_file_extension:
+          type: string
+          title: Force File Extension
+          description: Force the URL to be downloaded as a specific file extension (e.g. .png).
+        large_table_chunking:
+          allOf:
+            - $ref: '#/components/schemas/LargeTableChunkingConfig'
+          description: >-
+            The configuration options for large table chunking (currently only supported on spreadsheet and
+            CSV files).
+          default:
+            enabled: true
+            size: 50
+        spreadsheet_table_clustering:
+          type: string
+          enum:
+            - default
+            - disabled
+          title: Spreadsheet Table Clustering
+          description: On a spreadsheet, the algorithm that is used to split up sheets into multiple tables.
+          default: default
+        add_page_markers:
+          type: boolean
+          title: Add Page Markers
+          description: >-
+            If True, add page markers to the output (e.g. [[PAGE 1 BEGINS HERE]] and [[PAGE 1 ENDS HERE]]
+            added as blocks to the content). Defaults to False.
+          default: false
+        remove_text_formatting:
+          type: boolean
+          title: Remove Text Formatting
+          description: If True, remove text formatting from the output (e.g. hyphens for list items). Defaults to False.
+          default: false
+        return_ocr_data:
+          type: boolean
+          title: Return Ocr Data
+          description: If True, return OCR data in the result. Defaults to False.
+          default: false
+        document_password:
+          type: string
+          title: Document Password
+          description: Password to decrypt password-protected documents.
+      type: object
+      title: AdvancedProcessingOptions
+    ArrayExtractConfig:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: >-
+            Array extraction allows you to extract long lists of information from lengthy documents. It makes
+            parallel calls on overlapping sections of the document.
+          default: false
+        mode:
+          type: string
+          enum:
+            - auto
+            - legacy
+            - streaming
+            - no_overlap
+          title: Mode
+          description: The array extraction version to use.
+          default: legacy
+        pages_per_segment:
+          type: integer
+          title: Pages Per Segment
+          description: Length of each segment, in pages, for parallel calls with array extraction.
+          default: 10
+        streaming_extract_item_density:
+          type: integer
+          title: Streaming Extract Item Density
+          description: >-
+            Number of items to extract in each stream call. Lower numbers will increase quality but be much
+            slower. 50 works well for most documents with tables.
+          default: 50
+      type: object
+      title: ArrayExtractConfig
+    AsyncConfig:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          default: false
+        webhook:
+          allOf:
+            - $ref: '#/components/schemas/WebhookConfig'
+          title: Webhook
+        priority:
+          type: boolean
+          title: Priority
+          default: false
+      type: object
+      title: AsyncConfig
+    AsyncExtractConfigNew:
+      properties:
+        options:
+          allOf:
+            - $ref: '#/components/schemas/BaseProcessingOptions'
+          default:
+            extraction_mode: ocr
+            chunking:
+              chunk_mode: variable
+            table_summary:
+              enabled: false
+            figure_summary:
+              enabled: false
+              override: false
+            filter_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            force_url_result: false
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedProcessingOptions'
+          default:
+            ocr_system: highres
+            table_output_format: html
+            merge_tables: false
+            continue_hierarchy: true
+            keep_line_breaks: false
+            page_range: {}
+            large_table_chunking:
+              enabled: true
+              size: 50
+            spreadsheet_table_clustering: default
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        experimental_options:
+          allOf:
+            - $ref: '#/components/schemas/ExperimentalProcessingOptions'
+          default:
+            enrich:
+              enabled: false
+            layout_enrichment: false
+            native_office_conversion: false
+            enable_checkboxes: false
+            enable_equations: false
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            danger_filter_wide_boxes: false
+        document_url:
+          anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+            - $ref: '#/components/schemas/UploadResponse'
+          title: Document Url
+          description: >
+            The URL of the document to be processed. You can provide one of the following:
+
+            1. A publicly available URL
+
+            2. A presigned S3 URL
+
+            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a
+            document
+
+            4. A job_id (jobid://) or a list of job_ids (jobid://)
+        schema:
+          title: Schema
+          description: The JSON schema to use for extraction.
+        system_prompt:
+          type: string
+          title: System Prompt
+          description: >-
+            A system prompt to use for the extraction. This is a general prompt that is applied to the entire
+            document before any other prompts.
+          default: Be precise and thorough.
+        generate_citations:
+          type: boolean
+          title: Generate Citations
+          description: If citations should be generated for the extracted content.
+          default: false
+        array_extract:
+          allOf:
+            - $ref: '#/components/schemas/ArrayExtractConfig'
+          description: The configuration options for array extract
+          default:
+            enabled: false
+            mode: legacy
+            pages_per_segment: 10
+            streaming_extract_item_density: 50
+        webhook:
+          allOf:
+            - $ref: '#/components/schemas/WebhookConfigNew'
+          default:
+            mode: disabled
+            channels: []
+        priority:
+          type: boolean
+          title: Priority
+          description: >-
+            If True, attempts to process the job with priority if the user has priority processing budget
+            available; by default, sync jobs are prioritized above async jobs.
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+        - document_url
+        - schema
+      title: AsyncExtractConfigNew
+    AsyncExtractResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+      type: object
+      required:
+        - job_id
+      title: AsyncExtractResponse
+    AsyncJobResponse:
+      properties:
+        status:
+          type: string
+          enum:
+            - Pending
+            - Completed
+            - Failed
+            - Idle
+          title: Status
+        result:
+          anyOf:
+            - $ref: '#/components/schemas/ParseResponse'
+            - $ref: '#/components/schemas/ExtractResponse'
+            - $ref: '#/components/schemas/SplitResponse'
+            - type: 'null'
+          title: Result
+        progress:
+          anyOf:
+            - type: number
+            - type: 'null'
+          title: Progress
+        reason:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Reason
+      type: object
+      required:
+        - status
+      title: AsyncJobResponse
+    AsyncParseConfigNew:
+      properties:
+        options:
+          allOf:
+            - $ref: '#/components/schemas/BaseProcessingOptions'
+          default:
+            extraction_mode: ocr
+            chunking:
+              chunk_mode: variable
+            table_summary:
+              enabled: false
+            figure_summary:
+              enabled: false
+              override: false
+            filter_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            force_url_result: false
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedProcessingOptions'
+          default:
+            ocr_system: highres
+            table_output_format: html
+            merge_tables: false
+            continue_hierarchy: true
+            keep_line_breaks: false
+            page_range: {}
+            large_table_chunking:
+              enabled: true
+              size: 50
+            spreadsheet_table_clustering: default
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        experimental_options:
+          allOf:
+            - $ref: '#/components/schemas/ExperimentalProcessingOptions'
+          default:
+            enrich:
+              enabled: false
+            layout_enrichment: false
+            native_office_conversion: false
+            enable_checkboxes: false
+            enable_equations: false
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            danger_filter_wide_boxes: false
+        document_url:
+          anyOf:
+            - type: string
+            - $ref: '#/components/schemas/UploadResponse'
+          title: Document Url
+          description: >-
+            The URL of the document to be processed. You can provide one of the following:
+
+            1. A publicly available URL
+
+            2. A presigned S3 URL
+
+            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a
+            document
+        webhook:
+          allOf:
+            - $ref: '#/components/schemas/WebhookConfigNew'
+          default:
+            mode: disabled
+            channels: []
+        priority:
+          type: boolean
+          title: Priority
+          description: >-
+            If True, attempts to process the job with priority if the user has priority processing budget
+            available; by default, sync jobs are prioritized above async jobs.
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+        - document_url
+      title: AsyncParseConfigNew
+    AsyncParseResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+      type: object
+      required:
+        - job_id
+      title: AsyncParseResponse
+    AsyncSplitConfig:
+      properties:
+        options:
+          allOf:
+            - $ref: '#/components/schemas/BaseProcessingOptions'
+          default:
+            extraction_mode: ocr
+            chunking:
+              chunk_mode: variable
+            table_summary:
+              enabled: false
+            figure_summary:
+              enabled: false
+              override: false
+            filter_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            force_url_result: false
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedProcessingOptions'
+          default:
+            ocr_system: highres
+            table_output_format: html
+            merge_tables: false
+            continue_hierarchy: true
+            keep_line_breaks: false
+            page_range: {}
+            large_table_chunking:
+              enabled: true
+              size: 50
+            spreadsheet_table_clustering: default
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        experimental_options:
+          allOf:
+            - $ref: '#/components/schemas/ExperimentalProcessingOptions'
+          default:
+            enrich:
+              enabled: false
+            layout_enrichment: false
+            native_office_conversion: false
+            enable_checkboxes: false
+            enable_equations: false
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            danger_filter_wide_boxes: false
+        document_url:
+          anyOf:
+            - type: string
+            - $ref: '#/components/schemas/UploadResponse'
+          title: Document Url
+          description: >-
+            The URL of the document to be processed. You can provide one of the following:
+
+            1. A publicly available URL
+
+            2. A presigned S3 URL
+
+            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a
+            document
+        split_description:
+          items:
+            $ref: '#/components/schemas/SplitCategory'
+          type: array
+          title: Split Description
+          description: The configuration options for processing the document.
+        split_rules:
+          type: string
+          title: Split Rules
+          description: The rules for splitting the document.
+          default: >-
+            Split the document into the applicable sections. Sections may only overlap at their first and last
+            page if at all.
+        webhook:
+          allOf:
+            - $ref: '#/components/schemas/WebhookConfigNew'
+          default:
+            mode: disabled
+            channels: []
+        priority:
+          type: boolean
+          title: Priority
+          description: >-
+            If True, attempts to process the job with priority if the user has priority processing budget
+            available; by default, sync jobs are prioritized above async jobs.
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+        - document_url
+        - split_description
+      title: AsyncSplitConfig
+    AsyncSplitResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+      type: object
+      required:
+        - job_id
+      title: AsyncSplitResponse
+    BaseProcessingOptions:
+      properties:
+        extraction_mode:
+          type: string
+          enum:
+            - ocr
+            - metadata
+            - hybrid
+          title: Extraction Mode
+          description: The mode to use for extraction.
+          default: ocr
+        chunking:
+          allOf:
+            - $ref: '#/components/schemas/ChunkingConfig'
+          description: The configuration options for chunking.
+          default:
+            chunk_mode: variable
+        table_summary:
+          allOf:
+            - $ref: '#/components/schemas/TableSummaryConfig'
+          description: The configuration options for table summarization.
+          default:
+            enabled: false
+        figure_summary:
+          allOf:
+            - $ref: '#/components/schemas/FigureSummaryConfig'
+          description: The configuration options for figure summarization.
+          default:
+            enabled: false
+            override: false
+        filter_blocks:
+          items:
+            type: string
+            enum:
+              - Header
+              - Footer
+              - Title
+              - Section Header
+              - Page Number
+              - List Item
+              - Figure
+              - Table
+              - Key Value
+              - Text
+              - Comment
+              - Discard
+          type: array
+          title: Filter Blocks
+          description: A list of block types to filter from chunk content.
+          default:
+            - Page Number
+            - Header
+            - Footer
+            - Comment
+        force_url_result:
+          type: boolean
+          title: Force Url Result
+          description: Force the result to be returned in URL form (by default only used for very large responses).
+          default: false
+      type: object
+      title: BaseProcessingOptions
+    Body_upload_upload_post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      title: Body_upload_upload_post
+    BoundingBox:
+      properties:
+        left:
+          type: number
+          title: Left
+        top:
+          type: number
+          title: Top
+        width:
+          type: number
+          title: Width
+        height:
+          type: number
+          title: Height
+        page:
+          type: integer
+          title: Page
+          description: The page number of the bounding box (1-indexed).
+        original_page:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Original Page
+          description: The page number in the original document of the bounding box (1-indexed).
+      type: object
+      required:
+        - left
+        - top
+        - width
+        - height
+        - page
+      title: BoundingBox
+    ChunkingConfig:
+      properties:
+        chunk_mode:
+          type: string
+          enum:
+            - variable
+            - section
+            - page
+            - block
+            - disabled
+          title: Chunk Mode
+          description: >-
+            The mode to use for chunking. Section chunks according to sections in the document. Page chunks
+            according to pages. Disabled returns a single chunk.
+          default: variable
+        chunk_size:
+          type: integer
+          title: Chunk Size
+          description: >-
+            The approximate size of chunks (in characters) that the document will be split into. Defaults to
+            None, in which case the chunk size is variable between 250 - 1500 characters.
+      type: object
+      title: ChunkingConfig
+    EnrichConfig:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: >-
+            If enabled, a large language/vision model will be used to postprocess the extracted content. Note:
+            enabling enrich requires tables be outputted in markdown format. Defaults to False.
+          default: false
+        prompt:
+          type: string
+          title: Prompt
+          description: Add information to the prompt for enrichment.
+      type: object
+      title: EnrichConfig
+    ExperimentalProcessingOptions:
+      properties:
+        enrich:
+          allOf:
+            - $ref: '#/components/schemas/EnrichConfig'
+          description: The configuration options for enrichment.
+          default:
+            enabled: false
+        native_office_conversion:
+          type: boolean
+          title: Native Office Conversion
+          description: >-
+            Instead of using LibreOffice, when enabled, this flag uses a Windows VM to convert files. This is
+            slower but more accurate.
+          default: false
+        enable_checkboxes:
+          type: boolean
+          title: Enable Checkboxes
+          description: Use an experimental checkbox detection model to add checkboxes to the output, defaults to False
+          default: false
+        enable_equations:
+          type: boolean
+          title: Enable Equations
+          description: Use an experimental equation detection model to add equations to the output, defaults to False
+          default: false
+        rotate_pages:
+          type: boolean
+          title: Rotate Pages
+          description: Use an orientation model to detect and rotate pages as needed, defaults to True
+          default: false
+        enable_underlines:
+          type: boolean
+          title: Enable Underlines
+          description: >-
+            Add <u> tag around text that's underlined and surround strikethroughs and underlines with <change>
+            tags, defaults to False
+          default: false
+        enable_scripts:
+          type: boolean
+          title: Enable Scripts
+          description: Add <sub> tag around subscripts and <sup> tag around superscripts, defaults to False
+          default: false
+        return_figure_images:
+          type: boolean
+          title: Return Figure Images
+          description: If figure images should be returned in the result. Defaults to False.
+          default: false
+        danger_filter_wide_boxes:
+          type: boolean
+          title: Danger Filter Wide Boxes
+          description: >-
+            You probably shouldn't use this. If True, filter out boxes with width greater than 50% of the
+            document width. Defaults to False. You probably don't want to use this.
+          default: false
+      type: object
+      title: ExperimentalProcessingOptions
+    ExtractConfig:
+      properties:
+        document_url:
+          anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+          title: Document Url
+        parse_config:
+          allOf:
+            - $ref: '#/components/schemas/ProcessingOptions'
+          description: The configuration options for extraction.
+          default:
+            pdf_ocr: ocr
+            ocr_system: textract
+            table_output_format: html
+            infer_table_color: false
+            chunk_mode: variable
+            disable_chunking: true
+            continue_hierarchy: true
+            mode: document
+            table_summary: true
+            figure_summary: false
+            figure_summary_override: false
+            chart_extract: false
+            enrich: false
+            beta_layout_enrichment: false
+            ignore_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            merge_tables: false
+            dpi: 150
+            force_url_result: false
+            enhanced_docx_conversion: false
+            json_bbox: false
+            experimental_large_spreadsheet_table_chunking: false
+            use_checkboxes: false
+            use_equations: false
+            page_range:
+              - {}
+            keep_line_breaks: false
+            overlap_threshold: 0.5
+            large_table_chunking: true
+            large_table_chunking_size: 50
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            spreadsheet_table_clustering: default
+            danger_filter_wide_boxes: false
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        options:
+          allOf:
+            - $ref: '#/components/schemas/ExtractConfigOptions'
+          description: The configuration options for extraction.
+          default:
+            generate_citations: false
+            array_extract: false
+            array_extract_pages: 10
+            extract_algorithm: legacy
+            streaming_extract_item_density: 50
+        schema:
+          title: Schema
+          description: The JSON schema to use for extraction.
+        system_prompt:
+          type: string
+          title: System Prompt
+          description: >-
+            A system prompt to use for the extraction. This is a general prompt that is applied to the entire
+            document before any other prompts.
+          default: Be concise.
+        async:
+          allOf:
+            - $ref: '#/components/schemas/AsyncConfig'
+          description: The configuration options for asynchronous processing (default synchronous).
+          default:
+            enabled: false
+            priority: false
+      type: object
+      required:
+        - document_url
+        - schema
+      title: ExtractConfig
+    ExtractConfigNew:
+      properties:
+        options:
+          allOf:
+            - $ref: '#/components/schemas/BaseProcessingOptions'
+          default:
+            extraction_mode: ocr
+            chunking:
+              chunk_mode: variable
+            table_summary:
+              enabled: false
+            figure_summary:
+              enabled: false
+              override: false
+            filter_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            force_url_result: false
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedProcessingOptions'
+          default:
+            ocr_system: highres
+            table_output_format: html
+            merge_tables: false
+            continue_hierarchy: true
+            keep_line_breaks: false
+            page_range: {}
+            large_table_chunking:
+              enabled: true
+              size: 50
+            spreadsheet_table_clustering: default
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        experimental_options:
+          allOf:
+            - $ref: '#/components/schemas/ExperimentalProcessingOptions'
+          default:
+            enrich:
+              enabled: false
+            native_office_conversion: false
+            enable_checkboxes: false
+            enable_equations: false
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            danger_filter_wide_boxes: false
+        document_url:
+          anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+            - $ref: '#/components/schemas/UploadResponse'
+          title: Document Url
+          description: >
+            The URL of the document to be processed. You can provide one of the following:
+
+            1. A publicly available URL
+
+            2. A presigned S3 URL
+
+            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a
+            document
+
+            4. A job_id (jobid://) or a list of job_ids (jobid://)
+        schema:
+          title: Schema
+          description: The JSON schema to use for extraction.
+        system_prompt:
+          type: string
+          title: System Prompt
+          description: >-
+            A system prompt to use for the extraction. This is a general prompt that is applied to the entire
+            document before any other prompts.
+          default: Be precise and thorough.
+        generate_citations:
+          type: boolean
+          title: Generate Citations
+          description: If citations should be generated for the extracted content.
+          default: false
+        array_extract:
+          allOf:
+            - $ref: '#/components/schemas/ArrayExtractConfig'
+          description: The configuration options for array extract
+          default:
+            enabled: false
+            mode: legacy
+            pages_per_segment: 10
+            streaming_extract_item_density: 50
+      additionalProperties: false
+      type: object
+      required:
+        - document_url
+        - schema
+      title: ExtractConfigNew
+    ExtractConfigOptions:
+      properties:
+        generate_citations:
+          type: boolean
+          title: Generate Citations
+          description: If citations should be generated for the extracted content.
+          default: false
+        array_extract:
+          type: boolean
+          title: Array Extract
+          description: >-
+            Array extraction allows you to extract long lists of information from lengthy documents. It makes
+            parallel calls on overlapping sections of the document.
+          default: false
+        array_extract_pages:
+          type: integer
+          title: Array Extract Pages
+          description: Length of each segment, in pages, for parallel calls with array extraction.
+          default: 10
+        extract_algorithm:
+          type: string
+          enum:
+            - legacy
+            - streaming
+            - no_overlap
+          title: Extract Algorithm
+          description: The array extraction version to use.
+          default: legacy
+        streaming_extract_item_density:
+          type: integer
+          title: Streaming Extract Item Density
+          description: Number of items to extract in each stream call.
+          default: 50
+      type: object
+      title: ExtractConfigOptions
+    ExtractResponse:
+      properties:
+        usage:
+          $ref: '#/components/schemas/ExtractUsage'
+        result:
+          items: {}
+          type: array
+          title: Result
+          description: >-
+            The extracted response in your provided schema. This is a list of dictionaries. If
+            disbale_chunking is True (default), then it will be a list of length one.
+        citations:
+          anyOf:
+            - items: {}
+              type: array
+            - type: 'null'
+          title: Citations
+          description: The citations corresponding to the extracted response.
+      type: object
+      required:
+        - usage
+        - result
+        - citations
+      title: ExtractResponse
+    ExtractUsage:
+      properties:
+        num_pages:
+          type: integer
+          title: Num Pages
+        num_fields:
+          type: integer
+          title: Num Fields
+      type: object
+      required:
+        - num_pages
+        - num_fields
+      title: ExtractUsage
+    FigureSummaryConfig:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: If figure summarization should be performed.
+          default: false
+        prompt:
+          type: string
+          title: Prompt
+          description: Add information to the prompt for figure summarization.
+        override:
+          type: boolean
+          title: Override
+          description: If the figure summary prompt should override our default prompt.
+          default: false
+      type: object
+      title: FigureSummaryConfig
+    FullResult:
+      properties:
+        type:
+          type: string
+          enum:
+            - full
+          const: full
+          title: Type
+          description: type = 'full'
+        chunks:
+          items:
+            $ref: '#/components/schemas/ParseChunk'
+          type: array
+          title: Chunks
+        ocr:
+          anyOf:
+            - $ref: '#/components/schemas/OCRResult'
+            - type: 'null'
+        custom:
+          anyOf:
+            - {}
+            - type: 'null'
+          title: Custom
+      type: object
+      required:
+        - type
+        - chunks
+      title: FullResult
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LargeTableChunkingConfig:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: >-
+            If large tables should be chunked into smaller tables, currently only supported on spreadsheet and
+            CSV files.
+          default: true
+        size:
+          type: integer
+          title: Size
+          description: >-
+            The max row/column size for a table to be chunked. Defaults to 50. Header rows/columns are
+            persisted based on heuristics.
+          default: 50
+      type: object
+      title: LargeTableChunkingConfig
+    OCRLine:
+      properties:
+        text:
+          type: string
+          title: Text
+        bbox:
+          $ref: '#/components/schemas/BoundingBox'
+      type: object
+      required:
+        - text
+        - bbox
+      title: OCRLine
+    OCRResult:
+      properties:
+        words:
+          items:
+            $ref: '#/components/schemas/OCRWord'
+          type: array
+          title: Words
+        lines:
+          items:
+            $ref: '#/components/schemas/OCRLine'
+          type: array
+          title: Lines
+      type: object
+      required:
+        - words
+        - lines
+      title: OCRResult
+    OCRWord:
+      properties:
+        text:
+          type: string
+          title: Text
+        bbox:
+          $ref: '#/components/schemas/BoundingBox'
+      type: object
+      required:
+        - text
+        - bbox
+      title: OCRWord
+    PageRange:
+      properties:
+        start:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Start
+          description: The page number to start processing from (1-indexed).
+        end:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: End
+          description: The page number to stop processing at (1-indexed).
+      type: object
+      title: PageRange
+    ParseBlock:
+      properties:
+        type:
+          type: string
+          enum:
+            - Header
+            - Footer
+            - Title
+            - Section Header
+            - Page Number
+            - List Item
+            - Figure
+            - Table
+            - Key Value
+            - Text
+            - Comment
+            - Discard
+          title: Type
+          description: The type of block extracted from the document.
+        bbox:
+          allOf:
+            - $ref: '#/components/schemas/BoundingBox'
+          description: The bounding box of the block extracted from the document.
+        content:
+          type: string
+          title: Content
+          description: The content of the block extracted from the document.
+        image_url:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Image Url
+          description: (Experimental) The URL of the image associated with the block.
+      type: object
+      required:
+        - type
+        - bbox
+        - content
+      title: ParseBlock
+    ParseChunk:
+      properties:
+        content:
+          type: string
+          title: Content
+          description: The content of the chunk extracted from the document.
+        embed:
+          type: string
+          title: Embed
+          description: Chunk content optimized for embedding and retrieval.
+        enriched:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Enriched
+          description: The enriched content of the chunk extracted from the document.
+        enrichment_success:
+          type: boolean
+          title: Enrichment Success
+          description: Whether the enrichment was successful.
+          default: false
+        blocks:
+          items:
+            $ref: '#/components/schemas/ParseBlock'
+          type: array
+          title: Blocks
+      type: object
+      required:
+        - content
+        - embed
+        - enriched
+        - blocks
+      title: ParseChunk
+    ParseConfig:
+      properties:
+        document_url:
+          anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+          title: Document Url
+          description: >-
+            The URL of the document to process. Either a public URL or a presigned URL with a valid expiration
+            time.
+        config:
+          allOf:
+            - $ref: '#/components/schemas/ProcessingOptions'
+          description: The configuration options for processing the document.
+          default:
+            pdf_ocr: ocr
+            ocr_system: textract
+            table_output_format: html
+            infer_table_color: false
+            chunk_mode: variable
+            disable_chunking: false
+            continue_hierarchy: true
+            mode: document
+            table_summary: true
+            figure_summary: false
+            figure_summary_override: false
+            chart_extract: false
+            enrich: false
+            beta_layout_enrichment: false
+            ignore_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            merge_tables: false
+            dpi: 150
+            force_url_result: false
+            enhanced_docx_conversion: false
+            json_bbox: false
+            experimental_large_spreadsheet_table_chunking: false
+            use_checkboxes: false
+            use_equations: false
+            page_range:
+              - {}
+            keep_line_breaks: false
+            overlap_threshold: 0.5
+            large_table_chunking: true
+            large_table_chunking_size: 50
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            spreadsheet_table_clustering: default
+            danger_filter_wide_boxes: false
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        async:
+          allOf:
+            - $ref: '#/components/schemas/AsyncConfig'
+          description: The configuration options for asynchronous processing (default synchronous).
+          default:
+            enabled: false
+            priority: false
+      type: object
+      required:
+        - document_url
+      title: ParseConfig
+      description: Configuration for parsing a document
+    ParseConfigNew:
+      properties:
+        options:
+          allOf:
+            - $ref: '#/components/schemas/BaseProcessingOptions'
+          default:
+            extraction_mode: ocr
+            chunking:
+              chunk_mode: variable
+            table_summary:
+              enabled: false
+            figure_summary:
+              enabled: false
+              override: false
+            filter_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            force_url_result: false
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedProcessingOptions'
+          default:
+            ocr_system: highres
+            table_output_format: html
+            merge_tables: false
+            continue_hierarchy: true
+            keep_line_breaks: false
+            page_range: {}
+            large_table_chunking:
+              enabled: true
+              size: 50
+            spreadsheet_table_clustering: default
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        experimental_options:
+          allOf:
+            - $ref: '#/components/schemas/ExperimentalProcessingOptions'
+          default:
+            enrich:
+              enabled: false
+            native_office_conversion: false
+            enable_checkboxes: false
+            enable_equations: false
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            danger_filter_wide_boxes: false
+        document_url:
+          anyOf:
+            - type: string
+            - $ref: '#/components/schemas/UploadResponse'
+          title: Document Url
+          description: >-
+            The URL of the document to be processed. You can provide one of the following:
+
+            1. A publicly available URL
+
+            2. A presigned S3 URL
+
+            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a
+            document
+      additionalProperties: false
+      type: object
+      required:
+        - document_url
+      title: ParseConfigNew
+    ParseResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        duration:
+          type: number
+          title: Duration
+          description: The duration of the parse request in seconds.
+        pdf_url:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Pdf Url
+          description: The storage URL of the converted PDF file.
+        usage:
+          $ref: '#/components/schemas/ParseUsage'
+        result:
+          anyOf:
+            - $ref: '#/components/schemas/FullResult'
+            - $ref: '#/components/schemas/UrlResult'
+          title: Result
+          description: >-
+            The response from the document processing service. Note that there can be two types of responses,
+            Full Result and URL Result. This is due to limitations on the max return size on HTTPS. If the
+            response is too large, it will be returned as a presigned URL in the URL response. You should
+            handle this in your application.
+      type: object
+      required:
+        - job_id
+        - duration
+        - usage
+        - result
+      title: ParseResponse
+    ParseUsage:
+      properties:
+        num_pages:
+          type: integer
+          title: Num Pages
+      type: object
+      required:
+        - num_pages
+      title: ParseUsage
+    ProcessingOptions:
+      properties:
+        pdf_ocr:
+          type: string
+          enum:
+            - hybrid
+            - pdf
+            - ocr
+          title: Pdf Ocr
+          description: >-
+            The method to use for OCR. hybrid uses the PDF text first, then OCR. pdf only uses the PDF text.
+            ocr only uses OCR.
+          default: ocr
+        ocr_system:
+          type: string
+          enum:
+            - gcloud
+            - textract
+            - tesseract
+            - combined
+          title: Ocr System
+          description: The OCR system to use. Defaults to cloud (AWS Textract/Azure DocAI/etc).
+          default: textract
+        document_password:
+          type: string
+          title: Document Password
+          description: Password to decrypt password-protected documents.
+        table_output_format:
+          type: string
+          enum:
+            - html
+            - json
+            - md
+            - dynamic
+            - ai_json
+          title: Table Output Format
+          description: The mode to use for table output. Defaults to html.
+          default: html
+        infer_table_color:
+          type: boolean
+          title: Infer Table Color
+          description: If table cell colors should be used to determine table structure. Defaults to False.
+          default: false
+        chunk_mode:
+          type: string
+          enum:
+            - variable
+            - section
+            - page
+            - disabled
+            - block
+          title: Chunk Mode
+          description: >-
+            The mode to use for chunking. Defaults to 'variable'. Section chunks according to sections in the
+            document. Page chunks according to pages. Disabled returns a single chunk.
+          default: variable
+        chunk_size:
+          type: integer
+          title: Chunk Size
+          description: >-
+            The approximate size of chunks (in characters) that the document will be split into. Defaults to
+            None, in which case the chunk size is variable between 250 - 1500 characters.
+        disable_chunking:
+          type: boolean
+          title: Disable Chunking
+          description: DEPRECATED, use chunk_mode=disabled instead
+          default: false
+        continue_hierarchy:
+          type: boolean
+          title: Continue Hierarchy
+          description: >-
+            A flag to indicate if the hierarchy of the document should be continued from chunk to chunk. E.g.
+            ## Prev Section (cont.)
+          default: true
+        mode:
+          type: string
+          enum:
+            - document
+            - deck
+            - auto
+          title: Mode
+          description: >-
+            The type of document to be processed. Defaults to document. If auto is specified, the orientation
+            of the first page will be used to determine the document type.
+          default: document
+        table_summary:
+          type: boolean
+          title: Table Summary
+          description: If tables should be summarized for embedding. Defaults to True.
+          default: true
+        table_summary_prompt:
+          type: string
+          title: Table Summary Prompt
+          description: Add information to the prompt for table summarization.
+        figure_summary:
+          type: boolean
+          title: Figure Summary
+          description: A flag to indicate if figure summarization should be performed. Defaults to False.
+          default: false
+        figure_summary_prompt:
+          type: string
+          title: Figure Summary Prompt
+          description: Add information to the prompt for figure summarization.
+        figure_summary_override:
+          type: boolean
+          title: Figure Summary Override
+          description: If the figure summary prompt should override our default prompt.
+          default: false
+        chart_extract:
+          type: boolean
+          title: Chart Extract
+          description: >-
+            A flag to indicate if bar chart extraction should be performed (requires figure_summary=True).
+            Defaults to False.
+          default: false
+        enrich:
+          type: boolean
+          title: Enrich
+          description: >-
+            If enabled, a large language/vision model will be used to postprocess the extracted content.
+            Defaults to False.
+          default: false
+        enrich_prompt:
+          type: string
+          title: Enrich Prompt
+          description: Add information to the prompt for enrichment.
+        beta_layout_enrichment:
+          type: boolean
+          title: Beta Layout Enrichment
+          description: >-
+            If enabled, a large language/vision model will be used to postprocess the layout predictions.
+            Defaults to False.
+          default: false
+        ignore_blocks:
+          items:
+            type: string
+            enum:
+              - Header
+              - Footer
+              - Title
+              - Section Header
+              - Page Number
+              - List Item
+              - Figure
+              - Table
+              - Key Value
+              - Text
+              - Comment
+              - Discard
+          type: array
+          title: Ignore Blocks
+          description: A list of block types to ignore. Defaults to ['Page Number', 'Header', 'Footer', 'Comment'].
+          default:
+            - Page Number
+            - Header
+            - Footer
+            - Comment
+        merge_tables:
+          type: boolean
+          title: Merge Tables
+          description: >-
+            A flag to indicate if consecutive tables with the same number of columns should be merged.
+            Defaults to False.
+          default: false
+        dpi:
+          type: integer
+          title: Dpi
+          description: >-
+            The dots per inch (DPI) setting for image processing. Higher values increase resolution but
+            increase latency. The maximum recommended value is 300.
+          default: 150
+        force_url_result:
+          type: boolean
+          title: Force Url Result
+          description: Force the result to be returned in URL form.
+          default: false
+        force_file_extension:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Force File Extension
+          description: Force the URL to be downloaded as a specific file extension (e.g. `.png`).
+        custom_format:
+          type: string
+          enum:
+            - aml
+            - ai_usage
+          title: Custom Format
+        enhanced_docx_conversion:
+          type: boolean
+          title: Enhanced Docx Conversion
+          description: >-
+            Instead of using LibreOffice, when enabled, this flag uses a Windows VM to convert docx files.
+            This is slower but more accurate.
+          default: false
+        json_bbox:
+          type: boolean
+          title: Json Bbox
+          description: If True, include bounding box information in JSON table output. Defaults to False.
+          default: false
+        experimental_large_spreadsheet_table_chunking:
+          type: boolean
+          title: Experimental Large Spreadsheet Table Chunking
+          description: >-
+            Note, this is an alpha feature subject to change at any time. If enabled, large tables will be
+            chunked into multiple tables. Defaults to False.
+          default: false
+        use_checkboxes:
+          type: boolean
+          title: Use Checkboxes
+          description: Add checkboxes to the output, defaults to False
+          default: false
+        use_equations:
+          type: boolean
+          title: Use Equations
+          description: Add equations to the output, defaults to False
+          default: false
+        page_start:
+          type: integer
+          title: Page Start
+          description: The page number to start processing from.
+        page_end:
+          type: integer
+          title: Page End
+          description: The page number to stop processing at.
+        page_range:
+          anyOf:
+            - $ref: '#/components/schemas/PageRange'
+            - items:
+                $ref: '#/components/schemas/PageRange'
+              type: array
+          title: Page Range
+          description: The page range to process.
+          default: {}
+        keep_line_breaks:
+          type: boolean
+          title: Keep Line Breaks
+          description: If line breaks should be preserved in the text. Defaults to False.
+          default: false
+        overlap_threshold:
+          type: number
+          title: Overlap Threshold
+          description: The threshold for box overlap. Defaults to 0.5.
+          default: 0.5
+        large_table_chunking:
+          type: boolean
+          title: Large Table Chunking
+          description: >-
+            If large tables should be chunked into smaller tables, currently only supported on spreadsheet and
+            CSV files.
+          default: true
+        large_table_chunking_size:
+          type: integer
+          title: Large Table Chunking Size
+          description: The max row/column size for a table to be chunked. Defaults to 50.
+          default: 50
+        rotate_pages:
+          type: boolean
+          title: Rotate Pages
+          description: Use an orientation model to detect and rotate pages as needed, defaults to False
+          default: false
+        enable_underlines:
+          type: boolean
+          title: Enable Underlines
+          description: >-
+            Add <u> tag around text that's underlined and surround strikethroughs and underlines with <change>
+            tags, defaults to False
+          default: false
+        enable_scripts:
+          type: boolean
+          title: Enable Scripts
+          description: Add <sub> tag around subscripts and <sup> tag around superscripts, defaults to False
+          default: false
+        return_figure_images:
+          type: boolean
+          title: Return Figure Images
+          description: If figure images should be returned in the result. Defaults to False.
+          default: false
+        spreadsheet_table_clustering:
+          type: string
+          enum:
+            - default
+            - disabled
+          title: Spreadsheet Table Clustering
+          description: On a spreadsheet, the algorithm that is used to split up sheets into multiple tables.
+          default: default
+        danger_filter_wide_boxes:
+          type: boolean
+          title: Danger Filter Wide Boxes
+          description: >-
+            If True, filter out boxes with width greater than 50% of the document width. Defaults to False.
+            You probably don't want to use this.
+          default: false
+        add_page_markers:
+          type: boolean
+          title: Add Page Markers
+          description: If True, add page markers to the output. Defaults to False.
+          default: false
+        customer_id:
+          type: string
+          title: Customer Id
+          description: Override the customer ID for the request. Defaults to None.
+        remove_text_formatting:
+          type: boolean
+          title: Remove Text Formatting
+          description: If True, remove text formatting from the output (e.g. hyphens for list items). Defaults to False.
+          default: false
+        return_ocr_data:
+          type: boolean
+          title: Return Ocr Data
+          description: If True, return OCR data in the result. Defaults to False.
+          default: false
+        bucket_name:
+          type: string
+          title: Bucket Name
+          description: The name of the bucket to use for the document.
+        kms_arn:
+          type: string
+          title: Kms Arn
+          description: The AWS KMS key to use for the document.
+      type: object
+      title: ProcessingOptions
+    SplitCategory:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        partition_key:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Partition Key
+      type: object
+      required:
+        - name
+        - description
+      title: SplitCategory
+    SplitConfig:
+      properties:
+        options:
+          allOf:
+            - $ref: '#/components/schemas/BaseProcessingOptions'
+          default:
+            extraction_mode: ocr
+            chunking:
+              chunk_mode: variable
+            table_summary:
+              enabled: false
+            figure_summary:
+              enabled: false
+              override: false
+            filter_blocks:
+              - Page Number
+              - Header
+              - Footer
+              - Comment
+            force_url_result: false
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedProcessingOptions'
+          default:
+            ocr_system: highres
+            table_output_format: html
+            merge_tables: false
+            continue_hierarchy: true
+            keep_line_breaks: false
+            page_range: {}
+            large_table_chunking:
+              enabled: true
+              size: 50
+            spreadsheet_table_clustering: default
+            add_page_markers: false
+            remove_text_formatting: false
+            return_ocr_data: false
+        experimental_options:
+          allOf:
+            - $ref: '#/components/schemas/ExperimentalProcessingOptions'
+          default:
+            enrich:
+              enabled: false
+            layout_enrichment: false
+            native_office_conversion: false
+            enable_checkboxes: false
+            enable_equations: false
+            rotate_pages: false
+            enable_underlines: false
+            enable_scripts: false
+            return_figure_images: false
+            danger_filter_wide_boxes: false
+        document_url:
+          anyOf:
+            - type: string
+            - $ref: '#/components/schemas/UploadResponse'
+          title: Document Url
+          description: >-
+            The URL of the document to be processed. You can provide one of the following:
+
+            1. A publicly available URL
+
+            2. A presigned S3 URL
+
+            3. A reducto:// prefixed URL obtained from the /upload endpoint after directly uploading a
+            document
+        split_description:
+          items:
+            $ref: '#/components/schemas/SplitCategory'
+          type: array
+          title: Split Description
+          description: The configuration options for processing the document.
+        split_rules:
+          type: string
+          title: Split Rules
+          description: The rules for splitting the document.
+          default: >-
+            Split the document into the applicable sections. Sections may only overlap at their first and last
+            page if at all.
+      additionalProperties: false
+      type: object
+      required:
+        - document_url
+        - split_description
+      title: SplitConfig
+    SplitResponse:
+      properties:
+        usage:
+          $ref: '#/components/schemas/ParseUsage'
+        result:
+          allOf:
+            - $ref: '#/components/schemas/SplitResult'
+          description: >-
+            The extracted response in your provided schema. This is a list of dictionaries. If
+            disbale_chunking is True (default), then it will be a list of length one.
+      type: object
+      required:
+        - usage
+        - result
+      title: SplitResponse
+    SplitResult:
+      properties:
+        section_mapping:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          type: object
+          title: Section Mapping
+      type: object
+      required:
+        - section_mapping
+      title: SplitResult
+    TableSummaryConfig:
+      properties:
+        enabled:
+          type: boolean
+          title: Enabled
+          description: If table summarization should be performed.
+          default: false
+        prompt:
+          type: string
+          title: Prompt
+          description: Add information to the prompt for table summarization.
+      type: object
+      title: TableSummaryConfig
+    UploadResponse:
+      properties:
+        file_id:
+          type: string
+          title: File Id
+        presigned_url:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Presigned Url
+      type: object
+      required:
+        - file_id
+      title: UploadResponse
+    UrlResult:
+      properties:
+        type:
+          type: string
+          enum:
+            - url
+          const: url
+          title: Type
+          description: type = 'url'
+        url:
+          type: string
+          title: Url
+        result_id:
+          type: string
+          title: Result Id
+      type: object
+      required:
+        - type
+        - url
+        - result_id
+      title: UrlResult
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+    WebhookConfig:
+      properties:
+        url:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Url
+        mode:
+          type: string
+          enum:
+            - direct
+            - svix
+          title: Mode
+          default: direct
+        metadata:
+          title: Metadata
+        channels:
+          items:
+            type: string
+          type: array
+          title: Channels
+          description: A list of Svix channels the message will be delivered down, omit to send to all channels.
+      type: object
+      title: WebhookConfig
+    WebhookConfigNew:
+      properties:
+        mode:
+          type: string
+          enum:
+            - disabled
+            - svix
+            - direct
+          title: Mode
+          description: >-
+            The mode to use for webhook delivery. Defaults to 'disabled'. We recommend using 'svix' for
+            production environments.
+          default: disabled
+        url:
+          type: string
+          title: Url
+          description: The URL to send the webhook to (if using direct webhoook).
+        metadata:
+          title: Metadata
+          description: JSON metadata included in webhook request body
+        channels:
+          items:
+            type: string
+          type: array
+          title: Channels
+          description: A list of Svix channels the message will be delivered down, omit to send to all channels.
+      type: object
+      title: WebhookConfigNew
+  securitySchemes:
+    SkippableHTTPBearer:
+      type: http
+      scheme: bearer
