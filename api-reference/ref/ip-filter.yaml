@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Geonode Proxy IP Type Filtering API
+  description: API for filtering IPs based on their types (residential, datacenter, and mix) in Geonode's proxy service.
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Filtering IPs by Type (Residential, Datacenter, Mix) whhut
+      description: |
+        ## Filtering IPs by Type
+        Geonode's proxy service allows you to filter IPs based on their type for targeted proxy usage. 
+        The available IP types are:
+        - **Residential:** Real users' IP addresses from ISPs.
+        - **Datacenter:** IPs hosted in data centers, often used for high-speed connections.
+        - **Mix:** A combination of both residential and datacenter IPs.
+
+        ### How to Specify IP Type
+        You can specify the IP type by appending `type-<type_of_ip>` to the username when authenticating.
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          description: Specifies the response format.
+          schema:
+            type: string
+            example: application/json
+      x-readme:
+        explorer-enabled: false
+        samples-languages:
+          - cURL
+        code-samples:
+          - language: curl
+            name: Proxy cURL Example (Filtering IP Type)
+            code: |
+              curl --request GET \
+                   -x "http://proxy.geonode.io:<port>" \
+                   --user "<geonode_username>-type-<type_of_ip>:<geonode_password>" \
+                   --url "http://ip-api.com/json" 
+      responses:
+        '200':
+          description: Successfully filtered IPs based on type.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Indicates whether the request was successful (e.g., 'success').
+                  continent:
+                    type: string
+                    description: The continent where the IP is located (e.g., 'North America').
+                  continentCode:
+                    type: string
+                    description: The continent code (e.g., 'NA' for North America).
+                  country:
+                    type: string
+                    description: The country where the IP is registered (e.g., 'United States').
+                  countryCode:
+                    type: string
+                    description: The country code in ISO 3166-1 alpha-2 format (e.g., 'US').
+                  region:
+                    type: string
+                    description: The regional subdivision (state/province) of the country (e.g., 'AL' for Alabama).
+                  regionName:
+                    type: string
+                    description: The full name of the region (e.g., 'Alabama').
+                  city:
+                    type: string
+                    description: The city associated with the IP address (e.g., 'Decatur').
+                  district:
+                    type: string
+                    description: The district or subdivision of the city.
+                  zip:
+                    type: string
+                    description: The postal or ZIP code of the location (e.g., '35601').
+                  lat:
+                    type: number
+                    format: float
+                    description: Latitude coordinate of the location (e.g., 34.5891).
+                  lon:
+                    type: number
+                    format: float
+                    description: Longitude coordinate of the location (e.g., -86.9909).
+                  timezone:
+                    type: string
+                    description: Time zone in which the IP is located (e.g., 'America/Chicago').
+                  offset:
+                    type: integer
+                    description: Time offset from UTC in seconds (e.g., -21600).
+                  currency:
+                    type: string
+                    description: Local currency used in the country (e.g., 'USD').
+                  isp:
+                    type: string
+                    description: The name of the Internet Service Provider (ISP) (e.g., 'Charter Communications').
+                  org:
+                    type: string
+                    description: The name of the organization associated with the IP (e.g., 'Spectrum').
+                  as:
+                    type: string
+                    description: The Autonomous System (AS) number and name (e.g., 'AS20115 Charter Communications').
+                  asname:
+                    type: string
+                    description: The full Autonomous System (AS) name (e.g., 'CHARTER-20115').
+                  mobile:
+                    type: boolean
+                    description: Indicates whether the IP is from a mobile network (true/false).
+                  proxy:
+                    type: boolean
+                    description: Indicates whether the IP is being used as a proxy (true/false).
+                  hosting:
+                    type: boolean
+                    description: Indicates whether the IP belongs to a hosting provider or data center (true/false).
+                  query:
+                    type: string
+                    description: The IP address queried in the request (e.g., '68.191.141.86').
+        '403':
+          description: Bad request due to invalid parameters.
+        '407':
+          description: Unauthorized access due to invalid credentials.
+        '500':
+          description: Internal server error.
+      security:
+        - BasicAuth: []
+servers:
+  - url: http://ip-api.com/json
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: Basic authentication using `username-type-type-of-ip:password`.
