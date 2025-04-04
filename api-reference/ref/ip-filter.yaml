@@ -6,7 +6,7 @@ info:
 paths:
   /:
     get:
-      summary: Filtering IPs by Type (Residential, Datacenter, Mix)
+      summary: Filtering IPs by Type (Residential, Datacenter, Mix) whhut
       description: |
         ## Filtering IPs by Type
         Geonode's proxy service allows you to filter IPs based on their type for targeted proxy usage. 
