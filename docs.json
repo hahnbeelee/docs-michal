@@ -56,10 +56,17 @@
         }
       },
       {
-        "tab": "Local API",
-        "openapi": {
-          "source": "/pet-store.json",
-          "directory": "local-api"
+        "tab": "AsyncAPI",
+        "asyncapi": {
+          "source": "/asyncapi.yml",
+          "directory": "asyncapi"
+        }
+      },
+      {
+        "tab": "Websockets",
+        "asyncapi": {
+          "source": "/elevenlabs.yml",
+          "directory": "websocket"
         }
       }
     ],
