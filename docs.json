@@ -1,106 +1,24 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
+  "$schema": "https://mintlify.com/docs.json",
   "name": "Hahnbee's Docs",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
     "dark": "#0D9373"
   },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": ["introduction", "quickstart", "development"]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "api-reference/sticky-session/get-create",
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": ["api-reference/introduction"]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "asyncapi": {
-          "source": "https://raw.githubusercontent.com/asyncapi/spec/refs/heads/master/examples/websocket-gemini-asyncapi.yml",
-          "directory": "api-reference"
-        }
-      },
-      {
-        "tab": "AsyncAPI",
-        "asyncapi": {
-          "source": "/asyncapi.yml",
-          "directory": "asyncapi"
-        }
-      },
-      {
-        "tab": "Websockets",
-        "asyncapi": {
-          "source": "/elevenlabs.yml",
-          "directory": "websocket"
-        }
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+  "favicon": "/favicon.svg",
   "api": {
     "mdx": {
-      "server": "https://api.mintlify.com",
       "auth": {
         "method": "key",
         "name": "x-api-key"
-      }
+      },
+      "server": "https://api.mintlify.com"
     }
   },
   "navbar": {
@@ -115,6 +33,239 @@
       "label": "Dashboard",
       "href": "https://dashboard.mintlify.com"
     }
+  },
+  "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "icon": "book-open-cover",
+          "href": "https://mintlify.com/docs"
+        },
+        {
+          "anchor": "Community",
+          "icon": "slack",
+          "href": "https://mintlify.com/community"
+        },
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://mintlify.com/blog"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "language": "en",
+        "tabs": [
+          {
+            "tab": "Documentation",
+            "groups": [
+              {
+                "group": "Get Started",
+                "pages": [
+                  "introduction",
+                  "quickstart",
+                  "development"
+                ]
+              },
+              {
+                "group": "Essentials",
+                "pages": [
+                  "api-reference/sticky-session/get-create",
+                  "essentials/markdown",
+                  "essentials/code",
+                  "essentials/images",
+                  "essentials/settings",
+                  "essentials/navigation",
+                  "essentials/reusable-snippets"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "groups": [
+              {
+                "group": "API Documentation",
+                "pages": [
+                  "api-reference/introduction"
+                ]
+              },
+              {
+                "group": "Endpoint Examples",
+                "pages": [
+                  "api-reference/endpoint/get",
+                  "api-reference/endpoint/create",
+                  "api-reference/endpoint/delete"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "asyncapi": {
+              "source": "https://raw.githubusercontent.com/asyncapi/spec/refs/heads/master/examples/websocket-gemini-asyncapi.yml",
+              "directory": "api-reference"
+            }
+          },
+          {
+            "tab": "AsyncAPI",
+            "asyncapi": {
+              "source": "asyncapi.yml",
+              "directory": "asyncapi"
+            }
+          },
+          {
+            "tab": "Websockets",
+            "asyncapi": {
+              "source": "elevenlabs.yml",
+              "directory": "websocket"
+            }
+          }
+        ]
+      },
+      {
+        "tabs": [
+          {
+            "tab": "문서",
+            "groups": [
+              {
+                "group": "시작하기",
+                "pages": [
+                  "ko/introduction",
+                  "ko/quickstart",
+                  "ko/development"
+                ]
+              },
+              {
+                "group": "필수 사항",
+                "pages": [
+                  "ko/api-reference/sticky-session/get-create",
+                  "ko/essentials/markdown",
+                  "ko/essentials/code",
+                  "ko/essentials/images",
+                  "ko/essentials/settings",
+                  "ko/essentials/navigation",
+                  "ko/essentials/reusable-snippets"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "groups": [
+              {
+                "group": "API 문서",
+                "pages": [
+                  "ko/api-reference/introduction"
+                ]
+              },
+              {
+                "group": "엔드포인트 예시",
+                "pages": [
+                  "ko/api-reference/endpoint/get",
+                  "ko/api-reference/endpoint/create",
+                  "ko/api-reference/endpoint/delete"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "asyncapi": {
+              "source": "https://raw.githubusercontent.com/asyncapi/spec/refs/heads/master/examples/websocket-gemini-asyncapi.yml",
+              "directory": "api-reference"
+            }
+          },
+          {
+            "tab": "AsyncAPI",
+            "asyncapi": {
+              "source": "asyncapi.yml",
+              "directory": "asyncapi"
+            }
+          },
+          {
+            "tab": "웹소켓",
+            "asyncapi": {
+              "source": "elevenlabs.yml",
+              "directory": "websocket"
+            }
+          }
+        ],
+        "language": "ko"
+      },
+      {
+        "language": "es",
+        "tabs": [
+          {
+            "tab": "Documentación",
+            "groups": [
+              {
+                "group": "Comenzar",
+                "pages": [
+                  "es/introduction",
+                  "es/quickstart",
+                  "es/development"
+                ]
+              },
+              {
+                "group": "Esenciales",
+                "pages": [
+                  "es/api-reference/sticky-session/get-create",
+                  "es/essentials/markdown",
+                  "es/essentials/code",
+                  "es/essentials/images",
+                  "es/essentials/settings",
+                  "es/essentials/navigation",
+                  "es/essentials/reusable-snippets"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Referencia de API",
+            "groups": [
+              {
+                "group": "Documentación de API",
+                "pages": [
+                  "es/api-reference/introduction"
+                ]
+              },
+              {
+                "group": "Ejemplos de Endpoints",
+                "pages": [
+                  "es/api-reference/endpoint/get",
+                  "es/api-reference/endpoint/create",
+                  "es/api-reference/endpoint/delete"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Referencia de API",
+            "asyncapi": {
+              "source": "https://raw.githubusercontent.com/asyncapi/spec/refs/heads/master/examples/websocket-gemini-asyncapi.yml",
+              "directory": "api-reference"
+            }
+          },
+          {
+            "tab": "AsyncAPI",
+            "asyncapi": {
+              "source": "asyncapi.yml",
+              "directory": "asyncapi"
+            }
+          },
+          {
+            "tab": "Websockets",
+            "asyncapi": {
+              "source": "elevenlabs.yml",
+              "directory": "websocket"
+            }
+          }
+        ]
+      }
+    ]
   },
   "footer": {
     "socials": {
