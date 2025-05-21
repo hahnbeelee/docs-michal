@@ -1,0 +1,76 @@
+---
+- title: Inicio Rápido
+- description: Comienza a construir documentación impresionante en menos de 5 minutos
+---
+
+## Configura tu desarrollo
+
+Aprende cómo actualizar tus documentos localmente y desplegarlos al público.
+
+### Editar y previsualizar
+
+<AccordionGroup>
+  <Accordion title="Clona tus documentos localmente" icon="github">
+    Durante el proceso de incorporación, creamos un repositorio en tu Github con
+    el contenido de tus documentos. Puedes encontrar este repositorio en nuestro
+    [panel de control](https://dashboard.mintlify.com). Para clonar el repositorio
+    localmente, sigue estas
+    [instrucciones](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+    en tu terminal.
+  </Accordion>
+
+  <Accordion title="Vista previa de cambios" icon="rectangle-terminal">
+    La vista previa te ayuda a asegurarte de que tus cambios se vean como se pretende. Hemos construido una
+    interfaz de línea de comandos para renderizar estos cambios localmente. 1. Instala el
+    [CLI de Mintlify](https://www.npmjs.com/package/mintlify) para previsualizar los
+    cambios de documentación localmente con este comando: `npm i -g mintlify`
+    2\. Ejecuta el siguiente comando en la raíz de tu documentación (donde
+    `mint.json` está): `mintlify dev`
+  </Accordion>
+</AccordionGroup>
+
+### Despliega tus cambios
+
+<AccordionGroup>
+  <Accordion title="Instala nuestra aplicación de Github" icon="message-bot">
+    Nuestra aplicación de Github despliega automáticamente tus cambios en el sitio de tus documentos, así que
+    no necesitas gestionar los despliegues tú mismo. Puedes encontrar el enlace para instalar en
+    tu [panel de control](https://dashboard.mintlify.com). Una vez que el bot ha sido
+    instalado con éxito, debería haber una marca de verificación junto al hash del commit
+    del repositorio.
+  </Accordion>
+
+  <Accordion title="Sube tus cambios" icon="rocket">
+    [Haz commit y sube tus cambios a
+    Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
+    para que tus cambios se actualicen en el sitio de tus documentos. Si subes y no ves que
+    la aplicación de Github haya desplegado tus cambios con éxito, también puedes actualizar
+    manualmente tus documentos a través de nuestro [panel de control](https://dashboard.mintlify.com).
+  </Accordion>
+</AccordionGroup>
+
+## Actualiza tus documentos
+
+Agrega contenido directamente en tus archivos con sintaxis MDX y componentes React. Puedes usar cualquiera de nuestros componentes, o incluso construir los tuyos propios.
+
+<CardGroup cols={2}>
+  <Card title="Estiliza Tus Documentos" icon="paintbrush" href="/settings/global">
+    Añade estilo a tus documentos con una marca personalizada.
+  </Card>
+
+  <Card title="Añade Endpoints de API" icon="square-code" href="/api-playground/configuration">
+    Implementa tu especificación OpenAPI y habilita la interacción del usuario con la API.
+  </Card>
+
+  <Card title="Integra Análisis" icon="chart-mixed" href="/analytics/supported-integrations">
+    Obtén información de las interacciones de los usuarios con tu documentación.
+  </Card>
+
+  <Card title="Aloja en un Dominio Personalizado" icon="browser" href="/settings/custom-domain/subdomain">
+    Mantén tus documentos en el subdominio de tu propio sitio web.
+  </Card>
+</CardGroup>
+
+## encabezado 2
+
+![Ahh Yes Jpe](/api-reference/endpoint/ahh-yes.jpeg)

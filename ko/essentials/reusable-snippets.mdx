@@ -1,0 +1,102 @@
+---
+- title: 재사용 가능한 스니펫
+- description: 콘텐츠를 동기화 상태로 유지하기 위한 재사용 가능한 사용자 정의 스니펫
+- icon: recycle
+---
+
+import SnippetIntro from '/snippets/snippet-intro.mdx';
+
+<SnippetIntro />
+
+## 사용자 정의 스니펫 만들기
+
+**전제 조건**: 스니펫 파일을 `snippets` 디렉토리에 생성해야 합니다.
+
+<Note>
+  &#x20;디렉토리의 모든 페이지는 `snippets`스니펫으로 취급되며 독립적인 페이지로 렌더링되지 않습니다. 스니펫에서 독립적인 페이지를 만들고 싶다면, 스니펫을 다른 파일로 가져와서 컴포넌트로 호출하세요.
+</Note>
+
+### 기본 내보내기
+
+1. 여러 위치에서 재사용하고 싶은 내용을 스니펫 파일에 추가하세요. 선택적으로 스니펫을 가져올 때 props를 통해 채울 수 있는 변수를 추가할 수 있습니다.
+
+```mdx snippets/my-snippet.mdx
+Hello world! This is my content I want to reuse across pages. My keyword of the
+day is {word}.
+```
+
+<Warning>
+  재사용하려는 내용은 `snippets` 디렉토리 안에 있어야 가져오기가 작동합니다.
+</Warning>
+
+2. 대상 파일로 스니펫을 가져옵니다.
+
+```mdx destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import MySnippet from '/snippets/path/to/my-snippet.mdx';
+
+## Header
+
+Lorem impsum dolor sit amet.
+
+<MySnippet word="bananas" />
+```
+
+### 재사용 가능한 변수
+
+1. 스니펫 파일에서 변수를 내보냅니다:
+
+```mdx snippets/path/to/custom-variables.mdx
+export const myName = 'my name';
+
+export const myObject = { fruit: 'strawberries' };
+```
+
+2. 대상 파일에서 스니펫을 가져오고 변수를 사용합니다:
+
+```mdx destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
+
+Hello, my name is {myName} and I like {myObject.fruit}.
+```
+
+### 재사용 가능한 컴포넌트
+
+1. 스니펫 파일 내에서 props를 받는 컴포넌트를 만들려면 화살표 함수 형태로 컴포넌트를 내보내세요.
+
+```mdx snippets/custom-component.mdx
+export const MyComponent = ({ title }) => (
+  <div>
+    <h1>{title}</h1>
+    <p>... snippet content ...</p>
+  </div>
+);
+```
+
+<Warning>
+  MDX는 화살표 함수의 본문 내에서 컴파일되지 않습니다. 가능한 한 HTML 구문을 사용하거나 MDX를 사용해야 하는 경우 기본 내보내기를 사용하세요.
+</Warning>
+
+2. 대상 파일로 스니펫을 가져오고 props를 전달합니다
+
+```mdx destination-file.mdx
+---
+title: My title
+description: My Description
+---
+
+import { MyComponent } from '/snippets/custom-component.mdx';
+
+Lorem ipsum dolor sit amet.
+
+<MyComponent title={'Custom title'} />
+```
